@@ -1,0 +1,1013 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+ul {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+.navbar {
+    margin-top: 20px;
+}
+
+header {
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+.logo {
+    margin-bottom: 10px;
+}
+
+.img-logo {
+    width: 202px;
+    height: 62px;
+}
+
+.text-logo {
+    display: flex;
+    align-items: center;
+}
+
+.text-logo p {
+    margin: 0;
+    margin-left: auto;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    font-family: "Helvetica Neue", sans-serif;
+    margin-top: -15px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+nav li {
+    margin: 0 40px;
+    font-size: 13px;
+}
+
+nav a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 1);
+    position: relative;
+}
+
+nav a.active::before {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #333;
+    transition: all 0.3s;
+}
+
+nav a:hover::before {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #333;
+    transition: all 0.3s;
+}
+
+.content {
+    position: relative;
+    width: 100%;
+    max-width: 1440px;
+    height: 470px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.carousel {
+    display: flex;
+    width: 305%;
+    height: 100%;
+    transition: transform 1s ease-in-out;
+}
+
+.img-content {
+    width: 33.33%;
+    max-width: 1440px;
+    height: 470px;
+    object-fit: cover;
+    margin-right: -4px;
+}
+
+.text {
+    margin-top: 30px;
+}
+
+.text h3 {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 30px;
+    text-align: left;
+    margin-left: 40px;
+    font-weight: bold;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 18px;
+}
+
+.text h3.active::before {
+    content: "";
+    display: block;
+    width: 5%;
+    height: 2px;
+    background-color: #333;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: all 0.3s;
+}
+
+.text p {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 18px;
+    text-align: left;
+    margin-left: 60px;
+    text-decoration: none;
+    position: relative;
+    color: rgba(192, 192, 192, 1);
+    margin-top: 15px;
+}
+
+.carouselbe {
+    width: 90%;
+    display: flex;
+    overflow: hidden;
+    margin: 0 10%;
+    margin-top: 20px;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s;
+    width: 300%;
+}
+
+.carousel-item {
+    flex: 0 0 33.33%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.card {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    max-height: 455px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 -5px;
+    border: 1px solid #ddd;
+    padding: 0;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.card-content {
+    padding: 20px;
+    height: 150px;
+    overflow: auto;
+}
+
+.card-content h3 {
+    font-size: 22px;
+    margin-top: -16px;
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+.card-content p {
+    font-size: 12px;
+    color: #777;
+    font-family: "Helvetica Neue", sans-serif;
+    margin: 0;
+}
+
+.card-content button {
+    display: block;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    width: 108px;
+    height: 29px;
+    float: right;
+}
+
+.imageres {
+    background: rgba(217, 217, 217, 0.2);
+    padding: 10% 0;
+    display: flex;
+    align-items: center;
+    max-height: 625px;
+    margin-top: 70px;
+}
+
+.sary {
+    max-width: 25%;
+    margin: 0 50px;
+}
+
+.sary img {
+    width: 700px;
+}
+
+.soratra {
+    background-color: white;
+    flex: 1;
+    padding: 60px;
+    margin: 0 80px;
+}
+
+.soratrabe {
+    font-size: 30px;
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: bold;
+}
+
+.soratrakely {
+    font-size: 15px;
+    font-family: "Helvetica Neue", sans-serif;
+    margin-left: 70px;
+    margin-top: -10px;
+    border-top: 3px solid #000;
+    padding-top: 10px;
+}
+
+.buttons-and-map {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.buttons {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.salon-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.salon-list li {
+    margin-bottom: 30px;
+}
+
+.salon-list button {
+    background-color: rgba(0, 0, 0, 1);
+    color: rgba(255, 255, 255, 1);
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.salon-list button:hover {
+    opacity: 1;
+}
+
+.map {
+    flex: 2;
+}
+
+/* FOOTER */
+.container {
+    max-width: 1170px;
+    margin: auto;
+    position: relative;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -100px;
+}
+
+ul {
+    list-style: none;
+}
+
+.footer {
+    background-color: #24262b;
+    padding: 150px 0;
+    position: relative;
+}
+
+.footer-col {
+    width: 25%;
+    padding: 0 15px;
+}
+
+.footer-col h4 {
+    font-size: 20px;
+    color: #ffffff;
+    text-transform: capitalize;
+    margin-bottom: 30px;
+    font-weight: 500;
+    position: relative;
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+.footer-col h4::before {
+    content: "";
+    left: 0;
+    bottom: -10px;
+    background-color: rgba(255, 255, 255, 1);
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+    position: absolute;
+}
+
+.footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li {
+    list-style: disc outside;
+    color: white;
+    font-size: 12px;
+}
+
+.footer-col ul li a {
+    font-size: 12px;
+    text-transform: capitalize;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer-col p {
+    font-size: 12px;
+    text-transform: capitalize;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #ffffff;
+    padding-left: 10px;
+}
+
+.footer-col .social-links a {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: transparent;
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: all 0.5s ease;
+}
+
+.footer-col .social-links a:hover {
+    color: #24262b;
+    background-color: #ffffff;
+}
+
+.footer-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    bottom: -120px;
+    width: 100%;
+    padding: 5px 0;
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 14px;
+    word-spacing: 2px;
+    text-transform: capitalize;
+    color: #ffffff;
+}
+
+.footer-bottom::before {
+    content: "";
+    width: 100%;
+    border-top: 2px solid #ffffff;
+    margin-top: 10px;
+}
+
+/* POPUP */
+.form-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+}
+
+.form-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #888;
+}
+
+.custom-select {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: 1px solid #ccc;
+    background: #f1f1f1;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-container .btn.primary-btn {
+    background-color: #063e5f;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-container .btn.primary-btn:hover {
+    opacity: 1;
+}
+
+/* POPUP */
+
+/* SERVICE */
+.cardkely {
+    width: 100%;
+    max-width: 290px;
+    height: auto;
+    max-height: 470px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 -5px;
+    border: 1px solid #ddd;
+    padding: 0;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.cardkely:hover {
+    border-color: black;
+}
+
+.cardkely img {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 0 10%;
+}
+
+.card-contentserv {
+    padding: 20px;
+    height: 150px;
+    overflow: auto;
+}
+
+.card-contentserv h3 {
+    font-size: 22px;
+    margin-top: -18px;
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+.card-contentserv p {
+    font-size: 11px;
+    color: #777;
+    font-family: "Helvetica Neue", sans-serif;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+/* SERVICE */
+
+/* Prix */
+.container-prix {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.nomService {
+    font-weight: bold;
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+.nomSubService {
+    font-weight: bold;
+    color: rgb(155, 154, 154);
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+.prixService {
+    color: rgb(155, 154, 154);
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+.descriptionService {
+    font-size: 12px;
+    font-family: "Helvetica Neue", sans-serif;
+    line-height: 15px;
+    color: rgba(192, 192, 192, 1);
+}
+
+.category,
+.subcategory {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.nomService,
+.prixService {
+    flex: 1;
+}
+
+.nomSubService,
+.prixService {
+    flex: 1;
+}
+
+.line {
+    border-top: 1px solid #000;
+    width: 65%;
+    margin: 0 10px;
+}
+
+.ombre-de-ligne {
+    border: 0.5px solid #c9c7c7;
+    box-shadow: 0 0 10px #c9c7c7;
+    margin-top: 25px;
+}
+
+.revenir {
+    font-style: italic;
+    color: #235775;
+    cursor: pointer;
+    text-decoration: none !important;
+}
+
+.currency-button {
+    background-color: #91bee3;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.currency-button:hover {
+    background-color: #2196f3;
+}
+
+@media (max-width: 767px) {
+    .footer-col {
+        width: 50%;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 575px) {
+    .footer-col {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 694px) {
+    header {
+        padding: 10px;
+    }
+
+    .details p {
+        margin: 0 10px;
+        margin-left: 600px;
+        margin-top: -80px;
+    }
+
+    .logo img {
+        width: 240px;
+        height: auto;
+    }
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav li {
+        margin: 10px 0;
+    }
+
+    nav a.active::before,
+    nav a:hover::before {
+        bottom: -5px;
+        height: 1px;
+    }
+
+    .sary {
+        display: none;
+    }
+
+    .text p {
+        /*color: rgb(255, 136, 0);*/
+        font-size: 14px;
+    }
+
+    .carousel-inner {
+        width: 100%;
+    }
+
+    .carouselbe {
+        margin: 0 5%;
+    }
+
+    .card {
+        max-width: 220px;
+        max-height: 250px;
+    }
+
+    .card-content h3 {
+        font-size: 18px;
+    }
+
+    .card-content p {
+        font-size: 11px;
+        margin-top: 5px;
+    }
+
+    .card-content button {
+        display: none;
+    }
+
+    .sary img {
+        width: 600px;
+    }
+
+    .soratra {
+        padding: 20px;
+    }
+
+    .soratrabe {
+        font-size: 25px;
+    }
+
+    .soratrakely {
+        font-size: 15px;
+    }
+
+    #map-iframe {
+        width: 450px;
+        height: 325px;
+    }
+
+    .card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 695px) and (max-width: 1099px) {
+    .text p {
+        /*color: yellow;*/
+        font-size: 16px;
+    }
+
+    .carousel-inner {
+        width: 100%;
+    }
+
+    .carouselbe {
+        margin: 0 5%;
+    }
+
+    .card {
+        max-width: 220px;
+        max-height: 380px;
+    }
+
+    .card-content h3 {
+        font-size: 20px;
+    }
+
+    .card-content p {
+        font-size: 11px;
+        margin-top: 5px;
+    }
+
+    .sary img {
+        width: 600px;
+    }
+
+    .soratra {
+        padding: 30px;
+    }
+
+    #map-iframe {
+        width: 450px;
+        height: 325px;
+    }
+}
+
+@media screen and (min-width: 1100px) and (max-width: 1159px) {
+    /* Styles pour les petits écrans (smartphones) */
+
+    .text p {
+        /*color: red;*/
+    }
+
+    .carouselbe {
+        margin: 0 5%;
+    }
+
+    .card {
+        max-width: 230px;
+        max-height: 390px;
+    }
+
+    .card-content h3 {
+        font-size: 20px;
+    }
+
+    .card-content p {
+        font-size: 11px;
+        margin-top: 5px;
+    }
+
+    #map-iframe {
+        width: 700px;
+        height: 325px;
+        margin-left: 20px;
+    }
+}
+
+@media screen and (min-width: 1160px) and (max-width: 1199px) {
+    /* Styles pour les écrans de taille moyenne (tablettes) */
+
+    .text p {
+        /*color: blue;*/
+    }
+
+    .carouselbe {
+        margin: 0 5%;
+    }
+
+    .card {
+        max-width: 240px;
+        max-height: 400px;
+    }
+
+    .card-content h3 {
+        font-size: 20px;
+    }
+
+    .card-content p {
+        font-size: 11px;
+        margin-top: 5px;
+    }
+
+    #map-iframe {
+        width: 700px;
+        height: 325px;
+        margin-left: 40px;
+    }
+}
+
+@media screen and (min-width: 1250px) and (max-width: 1499px) {
+    .content-titre {
+        padding: 30px;
+    }
+
+    .buttons-and-map {
+        margin-left: 50px;
+    }
+
+    .salon-list li {
+        margin-bottom: 40px;
+    }
+
+    .salon-list button {
+        padding: 15px 15px;
+        font-size: 18px;
+    }
+
+    #map-iframe {
+        width: 700px;
+        height: 350px;
+        margin-left: 50px;
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .content-titre {
+        padding: 30px;
+    }
+
+    .buttons-and-map {
+        margin-left: 50px;
+    }
+
+    .salon-list li {
+        margin-bottom: 40px;
+    }
+
+    .salon-list button {
+        padding: 20px 20px;
+        font-size: 18px;
+    }
+
+    #map-iframe {
+        width: 900px;
+        height: 450px;
+        margin-left: 50px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    /* Styles pour les écrans ayant une largeur minimale de 1200px */
+
+    .content {
+        max-width: 3000px;
+        height: 770px;
+    }
+
+    .img-content {
+        max-width: 3000px;
+        height: 770px;
+    }
+
+    .text p {
+        /*color: red;*/
+    }
+
+    .card {
+        max-width: 300px;
+        max-height: 500px;
+    }
+
+    .sary img {
+        width: 800px;
+    }
+
+    #map-iframe {
+        width: 700px;
+        height: 325px;
+        margin-left: 20px;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .content {
+        max-width: 3000px;
+        height: 770px;
+    }
+
+    .img-content {
+        max-width: 3000px;
+        height: 770px;
+    }
+
+    .text p {
+        /*color: green;*/
+    }
+
+    .carouselbe {
+        margin-top: 30px;
+        margin: 0 8%;
+    }
+
+    .carousel-item {
+        padding: 20px;
+    }
+
+    .card {
+        max-width: 380px;
+        max-height: 600px;
+    }
+
+    .card-content {
+        height: 250px;
+    }
+
+    .card-content h3 {
+        font-size: 23px;
+    }
+
+    .card-content p {
+        font-size: 13px;
+        margin-top: 12px;
+    }
+
+    .card-content button {
+        width: 118px;
+        height: 35px;
+        margin-top: 30px;
+    }
+
+    .imageres {
+        padding: 20% 0;
+        max-height: 725px;
+        margin-top: 90px;
+    }
+
+    .sary {
+        max-width: 25%;
+        margin: 0 50px;
+    }
+
+    .sary img {
+        width: 900px;
+        margin-left: 20px;
+    }
+
+    .soratra {
+        padding: 100px;
+        margin: 0 100px;
+    }
+
+    .soratrabe {
+        font-size: 40px;
+    }
+
+    .soratrakely {
+        font-size: 20px;
+        margin-left: 100px;
+    }
+
+    .content-titre {
+        padding: 30px;
+    }
+
+    .buttons-and-map {
+        margin-left: 50px;
+    }
+
+    .salon-list li {
+        margin-bottom: 40px;
+    }
+
+    .salon-list button {
+        padding: 22px 20px;
+        font-size: 20px;
+    }
+
+    #map-iframe {
+        width: 1000px;
+        height: 400px;
+        margin-left: 50px;
+    }
+}
