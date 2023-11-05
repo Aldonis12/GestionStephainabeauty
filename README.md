@@ -1,5 +1,4 @@
-<p>HERITRA Aldonis, Stephaina Beauty Project.</p>
-<p>Laravel project.</p>
+<p><strong>HERITRA Aldonis</strong>, <i>Stephaina Beauty</i> Project.</p>
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://th.bing.com/th/id/OIP.49rPtb9FXdNdGxIEmPYjoQHaHa?pid=ImgDet&rs=1" width="400"></a></p>
 
