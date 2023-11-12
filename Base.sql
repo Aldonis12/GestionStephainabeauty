@@ -114,6 +114,7 @@ create table Client (
     email VARCHAR(50),
     profession VARCHAR(50),
     Code integer REFERENCES Influenceur(id),
+    qr_code VARCHAR(50),
     inserted timestamp default CURRENT_TIMESTAMP
 );
 
@@ -123,6 +124,7 @@ create table ClientDetails (
     idsalon integer REFERENCES Salon(id),
     idservice integer REFERENCES Service(id),
     idemploye integer REFERENCES Employe(id),
+    prix decimal(15,2),
     inserted timestamp default CURRENT_TIMESTAMP
 );
 
@@ -292,6 +294,10 @@ create view V_ListClientCode AS
     ORDER BY C.Code;
 
 
+SELECT Service.nom, COUNT(*) AS nombre
+FROM ClientDetails
+JOIN Service ON ClientDetails.idservice = Service.id
+GROUP BY Service.nom;
 
 SELECT EXTRACT(MONTH FROM ClientDetails.inserted) AS mois,EXTRACT(YEAR FROM ClientDetails.inserted) AS annee,idservice, COUNT(*) AS nombre 
 FROM ClientDetails GROUP BY mois,annee,idservice ORDER BY  annee asc, mois asc;
@@ -469,3 +475,9 @@ INSERT INTO ServiceSousCategorie(idServiceCategorie,nom,prix) values
     (57,'long',500000),
     (57,'tres long',600000),
     (57,'tres tres long',700000);
+
+
+SELECT * FROM employe 
+JOIN EmployeService ON EmployeService.idEmploye = employe.id
+JOIN Service ON Service.id = EmployeService.idService
+where service.idtypes = 1;

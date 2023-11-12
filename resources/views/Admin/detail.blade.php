@@ -457,12 +457,22 @@
                                                     <p>
                                                         {{ $client->profession }}
                                                     </p>
-                                                    <p class="font-weight-bold">Charge enfant</p>
+                                                </address>
+                                            </div>
+
+
+                                            <div class="col-md-6">
+                                                <address>
+                                                    <p class="font-weight-bold">Code QR</p>
                                                     <p>
-                                                        {{ $client->charge }}
+                                                        <p>{!! DNS2D::getBarcodeHTML("CLI-$client->id",'QRCODE',3,3)!!}</p>
+                                                        <p>
+                                                            {{ $client->code_qr }}
+                                                        </p>
                                                     </p>
                                                 </address>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>

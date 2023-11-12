@@ -29,15 +29,11 @@ class UpdateController extends Controller
             'id' => 'required',
             'nom' => 'required',
             'adresse' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
 
         ], [
             'id.required' => 'Le champ id est requis.',
             'nom.required' => 'Le champ nom est requis.',
             'adresse.required' => 'Le champ adresse est requis.',
-            'latitude.required' => 'Le champ latitude est requis.',
-            'longitude.required' => 'Le champ longitude est requis.',
         ]);
     
         if ($validator->fails()) {
@@ -46,13 +42,12 @@ class UpdateController extends Controller
 
         $salon = Salon::find($request->id);
         $salon->nom = $request->nom;
-        if (Str::startsWith($request->adresse, 'Lieu: ')) {
+        /*if (Str::startsWith($request->adresse, 'Lieu: ')) {
             $salon->adresse = Str::replaceFirst('Lieu: ', '', $request->adresse);
         } else {
             $salon->adresse = $request->adresse;
-        }
-        $salon->latitude = $request->latitude;
-        $salon->longitude = $request->longitude;
+        }*/
+        $salon->adresse = $request->adresse;
         $salon->update();
 
         return redirect('/DetailSalon/'.$request->id);

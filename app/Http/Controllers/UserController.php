@@ -18,9 +18,71 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+
+    public function checkClientCode(Request $request)
+    {
+        $code = $request->input('code');
+
+        $client = Client::where('code_qr', $code)->first();
+
+        if ($client) {
+            $clientDetails = [
+                'nom' => $client->nom,
+                'prenom' => $client->prenom,
+            ];
+
+            $serviceDetails = DB::table('clientdetails')
+                ->join('service', 'clientdetails.idservice', '=', 'service.id')
+                ->select('service.nom', DB::raw('COUNT(*) as nombre'))
+                ->where('clientdetails.idclient', $client->id)
+                ->groupBy('service.nom')
+                ->get();
+
+            return response()->json(['exists' => true, 'clientDetails' => $clientDetails, 'serviceDetails' => $serviceDetails]);
+        } else {
+            return response()->json(['exists' => false]);
+        }
+    }
+
+    public function UpdateClientCode()
+    {
+        $titre = 'Update Code';
+        return view('User/AjoutAction', compact('titre'));
+    }
+
+
+    public function UpdateClientCodeValid(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'idclient' => 'required',
+            'code_qr' => ['required', 'regex:/^CLI-/'],
+        ], [
+            'idclient.required' => 'Le champ idclient est requis.',
+            'code_qr.required' => 'Le champ code_qr est requis.',
+            'code_qr.regex' => 'Le champ code_qr doit commencer par "CLI-".',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $client = Client::find($request->idclient);
+        $client->code_qr = $request->code_qr;
+        $client->update();
+
+        return redirect('/AddClient');
+    }
+
+    public function ScannerCodeClient()
+    {
+        $titre = 'Scanner Code';
+        return view('User/AjoutAction', compact('titre'));
+    }
+
+
     public function PageAddClient()
     {
-        $genres = Genre::all();
+        $genres = Genre::orderBy('id', 'DESC')->get();
         $codes = Influenceur::select('id', 'code')->get();
         return view('User/ajout', compact('genres', 'codes'));
     }
@@ -31,31 +93,38 @@ class UserController extends Controller
             'nom' => 'required',
             'prenom' => 'required',
             'genre' => 'required|integer|min:0',
-            'date_naissance' => 'required|before:today',
             'adresse' => 'required',
+            'code_qr' => 'required',
         ], [
             'nom.required' => 'Le champ nom est requis.',
             'prenom.required' => 'Le champ prenom est requis.',
             'genre.required' => 'Le champ genre est requis.',
             'genre.integer' => 'Le champ genre est requis.',
             'idgenre.min' => 'Le champ genre doit être réel et positif.',
-            'date_naissance.before' => 'La date de naissance doit être inférieure à aujourd\'hui.',
             'adresse.required' => 'Le champ adresse est requis.',
+            'code_qr.required' => 'Le champ Code QR est requis.',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $client = DB::table('client')
-            ->select('id')
-            ->where('nom', $request->nom)
-            ->where('prenom', $request->prenom)
-            ->where('date_naissance', $request->date_naissance)
-            ->first();
+        $client = Client::whereRaw('LOWER(nom) = ? AND LOWER(prenom) = ?', [strtolower($request->nom), strtolower($request->prenom)])->first();
+
+        $clientCode = Client::where('code_qr', $request->code_qr)->first();
+
+        /*$number = mt_rand(1000000000, 9999999999);
+
+        if ($this->QrcodeExist($number)) {
+            $number = mt_rand(1000000000, 9999999999);
+        }*/
+
+        if ($clientCode) {
+            return redirect()->back()->withInput()->with('message', 'Ce code QR est déjà utilisé, Veuillez utiliser un autre code.');
+        }
 
         if ($client) {
-            return redirect()->back()->with('message', 'Ce client est déjà enregistré.');
+            return redirect()->back()->withInput()->with('message', 'Veuillez ajouter un initial sur votre prenom pour eviter le conflit avec un autre client : ' . $client->nom . ' ' . $client->prenom . '.');
         } else {
             $client = new Client();
             $client->nom = $request->nom;
@@ -66,12 +135,40 @@ class UserController extends Controller
             $client->adresse = $request->adresse;
             $client->email = $request->email;
             $client->profession = $request->profession;
-            if ($request->code>0) {
+            if ($request->code > 0) {
                 $client->code = $request->code;
             }
+            $client->code_qr = $request->code_qr;
             $client->save();
 
             return redirect('/AddClient');
+        }
+    }
+
+    /*public function QrcodeExist($number)
+    {
+        return Client::where('qr_code', $number)->exists();
+    }*/
+
+
+    public function AddAPIClient(Request $request)
+    {
+        $client = DB::table('client')
+            ->select('id')
+            ->where('nom', $request->nom)
+            ->where('prenom', $request->prenom)
+            ->where('date_naissance', $request->date_naissance)
+            ->first();
+
+        if ($client) {
+            return response()->json('Ce client est déjà enregistré.');
+        } else {
+            $client = new Client();
+            $client->nom = $request->nom;
+            $client->prenom = $request->prenom;
+            $client->date_naissance = $request->date_naissance;
+            $client->idgenre = $request->genre;
+            $client->save();
         }
     }
 
@@ -111,29 +208,44 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'idclient' => 'required',
-            'idservice' => 'required',
-            'idemploye' => 'required',
+            'idservice' => 'array|required',
+            'idemploye' => 'array|required',
             'idsalon' => 'required',
+            'prix' => 'array|required',
         ], [
             'idclient.required' => 'Le champ Nom Client est requis.',
             'idservice.required' => 'Le champ Service est requis.',
             'idemploye.required' => 'Le champ Employé est requis.',
             'idsalon.required' => 'Le champ Salon est requis.',
+            'prix.required' => 'Le champ Prix est requis.',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $id = Client::where('code_qr', $request->idclient)->first();
+
+        if (!$id) {
+            return redirect()->back()->with('message', 'Ce code n\'existe pas dans la base!');
+        }
+
         try {
             DB::beginTransaction();
 
-            $clientDetails = new ClientDetails();
-            $clientDetails->idclient = $request->idclient;
-            $clientDetails->idservice = $request->idservice;
-            $clientDetails->idemploye = $request->idemploye;
-            $clientDetails->idsalon = $request->idsalon;
-            $clientDetails->save();
+            $idservices = $request->idservice;
+            $idemployes = $request->idemploye;
+            $prix = $request->prix;
+
+            foreach (range(0, count($idservices) - 1) as $index) {
+                $clientDetails = new ClientDetails();
+                $clientDetails->idclient = $id->id;
+                $clientDetails->idservice = $idservices[$index];
+                $clientDetails->idemploye = $idemployes[$index];
+                $clientDetails->idsalon = $request->idsalon;
+                $clientDetails->prix = $prix[$index];
+                $clientDetails->save();
+            }
 
             $reponsesSelectionnees = $request->all();
 
@@ -144,7 +256,7 @@ class UserController extends Controller
                     $idquestion = $parts[1];
 
                     DB::table('reponseclient')->insert([
-                        'idclient' => $request->idclient,
+                        'idclient' => $id->id,
                         'idquestion' => $idquestion,
                         'reponse' => $value,
                         'idsalon' => $request->idsalon,
@@ -153,6 +265,26 @@ class UserController extends Controller
             }
 
             DB::commit();
+
+            $servicesDetails = DB::table('clientdetails')
+                ->join('service', 'clientdetails.idservice', '=', 'service.id')
+                ->select('service.nom', DB::raw('COUNT(*) as nombre'))
+                ->where('clientdetails.idclient', $id->id)
+                ->groupBy('service.id', 'service.nom')
+                ->get();
+
+            $nombrePrestations = 0;
+
+            foreach ($servicesDetails as $service) {
+                $nombrePrestations += $service->nombre;
+
+                if ($nombrePrestations % 10 == 0) {
+                    $servicesGratuitsDizeine = session()->put('servicesGratuitsDizeine', []);
+                    $servicesGratuitsDizeine[] = $service->nom;
+                    session()->put(['servicesGratuitsDizeine' => $servicesGratuitsDizeine]);
+                    return redirect('/AddActionClient');
+                }
+            }
 
             return redirect('/AddClient');
         } catch (\Exception $e) {
@@ -171,8 +303,8 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'idinfluenceur' => 'required',
-            'idservice' => 'required',
-            'idemploye' => 'required',
+            'idservice' => 'array|required', // Changement : 'idservice' doit être un tableau
+            'idemploye' => 'array|required',
             'idsalon' => 'required',
         ], [
             'idinfluenceur.required' => 'Le champ Nom est requis.',
@@ -186,13 +318,17 @@ class UserController extends Controller
         }
 
         try {
-            $Influenceur = new InfluenceurPrestataire();
-            $Influenceur->idinfluenceur = $request->idinfluenceur;
-            $Influenceur->idservice = $request->idservice;
-            $Influenceur->idemploye = $request->idemploye;
-            $Influenceur->idsalon = $request->idsalon;
-            $Influenceur->save();
+            $idservices = $request->idservice;
+            $idemployes = $request->idemploye;
 
+            foreach (range(0, count($idservices) - 1) as $index) {
+                $Influenceur = new InfluenceurPrestataire();
+                $Influenceur->idinfluenceur = $request->idinfluenceur;
+                $Influenceur->idservice = $idservices[$index];
+                $Influenceur->idemploye  = $idemployes[$index];
+                $Influenceur->idsalon = $request->idsalon;
+                $Influenceur->save();
+            }
             return redirect('/AddClient');
         } catch (\Exception $e) {
             return redirect()->back();
@@ -214,6 +350,7 @@ class UserController extends Controller
     {
         $term = $request->input('term');
         $results = Service::where('nom', 'LIKE', '%' . $term . '%')
+            ->where('issalon', 1)
             ->get();
 
         return response()->json($results);
@@ -222,10 +359,16 @@ class UserController extends Controller
     public function autocompleteEmploye(Request $request)
     {
         $term = $request->input('term');
-        $results = Employe::where('nom', 'LIKE', '%' . $term . '%')
-            ->orWhere('prenom', 'LIKE', '%' . $term . '%')
-            ->distinct('nom', 'prenom')
-            ->get();
+        $results = DB::table('employe')
+            ->join('employeservice', 'employe.id', '=', 'employeservice.idemploye')
+            ->join('service', 'employeservice.idservice', '=', 'service.id')
+            ->where('service.idtypes', 1)
+            ->where(function ($query) use ($term) {
+                $query->where('employe.nom', 'LIKE', '%' . $term . '%')
+                    ->orWhere('employe.prenom', 'LIKE', '%' . $term . '%');
+            })
+            ->distinct()
+            ->get(['employe.*']);
 
         return response()->json($results);
     }
@@ -234,8 +377,7 @@ class UserController extends Controller
     {
         $term = $request->input('term');
         $results = Influenceur::where('nom', 'LIKE', '%' . $term . '%')
-            ->orWhere('prenom', 'LIKE', '%' . $term . '%')
-            ->distinct('nom', 'prenom')
+            ->distinct('nom')
             ->get();
 
         return response()->json($results);
@@ -432,4 +574,10 @@ class UserController extends Controller
 
         return redirect()->back();
     }
+
+    public function clearSession()
+{
+    session()->forget('servicesGratuitsDizeine');
+    return response()->json(['success' => true]);
+}
 }

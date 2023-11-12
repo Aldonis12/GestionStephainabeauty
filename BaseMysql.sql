@@ -18,7 +18,8 @@ create table Types(
 create table Service (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     nom VARCHAR(50) NOT NULL,
-    idtypes integer REFERENCES Types(id)
+    idtypes integer REFERENCES Types(id),
+    isSalon integer default 0;
 );
 
 create table Genre (

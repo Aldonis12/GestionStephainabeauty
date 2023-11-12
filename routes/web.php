@@ -39,7 +39,7 @@ Route::post('/updatepassword', [AuthentificationController::class, 'Updatepasswo
 
 
 Route::middleware(['checkAdmin'])->group(function () {
-
+    
     Route::get('/AddService', [AddController::class, 'PageAddService']);
     Route::post('/AddServiceValid', [AddController::class, 'AddService']);
     Route::get('/DeleteService/{id}', [DeleteController::class, 'DeleteService']);
@@ -55,7 +55,6 @@ Route::middleware(['checkAdmin'])->group(function () {
     Route::post('/AddEmployeServiceValid', [AddController::class, 'AddEmployeService']);
     Route::get('/DeleteEmployeService/{id}', [DeleteController::class, 'DeleteEmployeService']);
     
-
     Route::get('/AddQuestion', [AddController::class, 'PageAddQuestion']);
     Route::post('/AddQuestionValid', [AddController::class, 'AddQuestion']);
 
@@ -144,12 +143,26 @@ Route::middleware(['checkSalon'])->group(function () {
     Route::get('/AddActionInfluenceur', [UserController::class, 'PageActionInfluenceur']);
     Route::post('/AddActionInfluenceurValid', [UserController::class, 'AddActionInfluenceur']);
 
+    Route::get('/ScannerCode', [UserController::class, 'ScannerCodeClient']);
+
+    Route::get('/CheckClientCode', [UserController::class, 'CheckClientCode']);
+
+    Route::get('/UpdateClientCode', [UserController::class, 'UpdateClientCode']);
+    Route::post('/UpdateClientCodeValid', [UserController::class, 'UpdateClientCodeValid']);
+
     Route::get('/autocomplete', [UserController::class, 'autocomplete']);
     Route::get('/autocompleteService', [UserController::class, 'autocompleteService']);
     Route::get('/autocompleteEmploye', [UserController::class, 'autocompleteEmploye']);
     Route::get('/autocompleteInfluenceur', [UserController::class, 'autocompleteInfluenceur']);
+
+    Route::get('/clearSession', [UserController::class, 'clearSession']);
+
+
 });
 
+Route::get('/GenerateCodeQR' , function () {
+    return view('User/generate');
+});
 
 //User INFLUENCEUR
 Route::middleware(['checkInfluenceur'])->group(function () {

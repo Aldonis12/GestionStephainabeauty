@@ -13,7 +13,7 @@ class Client extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['nom','prenom','date_naissance','idgenre','adresse','numero','email','profession','code','inserted'];
+    protected $fillable = ['nom','prenom','date_naissance','idgenre','code_qr','adresse','numero','email','profession','code','inserted'];
 
     public function Genre(){
         return $this->belongsTo(Genre::class, 'idgenre');

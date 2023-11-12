@@ -51,17 +51,6 @@
                                                     value="{{ $salon->nom }}" name="nom" required>
                                             </div>
                                             <div class="form-group">
-                                                <label>Localisation</label>
-                                                <div id="map"
-                                                    style="width: 100%; height: 350px; border-radius: 10px;"></div>
-                                                <input type="text" id="latitude" name="latitude"
-                                                    class="form-control" value="{{ $salon->latitude }}" hidden
-                                                    placeholder="latitude">
-                                                <input type="text" id="longitude" name="longitude"
-                                                    class="form-control" value="{{ $salon->longitude }}" hidden
-                                                    placeholder="longitude">
-                                            </div>
-                                            <div class="form-group">
                                                 <label>Adresse</label>
                                                 <input type="text" class="form-control" placeholder="Adresse"
                                                     value="{{ $salon->adresse }}" name="adresse" id="adresse"

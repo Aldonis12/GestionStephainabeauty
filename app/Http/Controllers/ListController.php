@@ -59,18 +59,18 @@ class ListController extends Controller
     {
         $titre = "clientbycode";
         $code = Influenceur::where('id', $id)->value('code');
-        $clients = Client::where('code',$id)->orderBy('inserted', 'desc')->paginate(10);
-        return view('Admin/liste', compact('titre', 'clients','code'));
+        $clients = Client::where('code', $id)->orderBy('inserted', 'desc')->paginate(10);
+        return view('Admin/liste', compact('titre', 'clients', 'code'));
     }
 
 
     public function ListClientFidele()
     {
         $titre = "clientFidele";
-        
+
         $clients = ClientFidele::where('annee', Carbon::now()->year)
             ->where('mois', Carbon::now()->month)
-            ->where('visite','>', 1)
+            ->where('visite', '>', 1)
             ->paginate(10);
 
         return view('Admin/liste', compact('titre', 'clients'));
@@ -79,19 +79,35 @@ class ListController extends Controller
     public function listClientBySalon(Request $request)
     {
         $titre = "Clients par Salon";
-        
-        $Daty = $request->input('daty',date('Y-m-d'));
+
+        $dateDebut = $request->input('daty_debut');
+        $dateFin = $request->input('daty_fin');
+
+    // Si l'une des dates est vide, utilisez la date actuelle
+    if (empty($dateDebut)) {
+        $dateDebut = $dateFin;
+    }
+
+    if (empty($dateFin)) {
+        $dateFin = $dateDebut;
+    }
+
+    if (empty($dateDebut) || empty($dateFin)) {
+        $dateDebut = date('Y-m-d');
+        $dateFin = date('Y-m-d');
+    }
 
         $clients = DB::table('clientdetails')
             ->select('salon.id as salon_id', 'salon.nom as nom_du_salon', 'client.id as client_id', 'client.nom as nom_du_client', 'client.prenom as prenom_du_client', 'client.numero')
             ->join('salon', 'clientdetails.idsalon', '=', 'salon.id')
             ->join('client', 'clientdetails.idclient', '=', 'client.id')
-            ->whereDate('clientdetails.inserted', '=', $Daty)
+            ->whereBetween(DB::raw('DATE(clientdetails.inserted)'), [$dateDebut, $dateFin])
             ->get();
 
-            $clientsGroupedBySalon = $clients->groupBy('salon_id');
+            
+        $clientsGroupedBySalon = $clients->groupBy('salon_id');
 
-            return view('Admin.liste', compact('titre', 'clientsGroupedBySalon'));
+        return view('Admin.liste', compact('titre', 'clientsGroupedBySalon'));
     }
 
     public function ListInfluenceur()
@@ -174,7 +190,7 @@ class ListController extends Controller
 
         foreach ($data as $row) {
             $genre = $row->genre->nom;
-            
+
             $row_data = [
                 ucfirst($row->nom),
                 $row->prenom,
@@ -225,7 +241,7 @@ class ListController extends Controller
 
         $handle = fopen($filename, 'w');
 
-        $headers = ['Nom', 'Prenom', 'Date de naissance', 'Genre', 'Numero', 'Email','Profession'];
+        $headers = ['Nom', 'Prenom', 'Date de naissance', 'Genre', 'Numero', 'Email', 'Profession'];
         fputcsv($handle, $headers, ';');
 
         foreach ($data as $row) {

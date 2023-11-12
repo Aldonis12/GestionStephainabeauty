@@ -38,6 +38,34 @@ INSERT INTO Service (nom, idtypes) VALUES
     ('ADM', 2),
     ('Marketing', 2);
 
+INSERT INTO Service(nom, idtypes,issalon) VALUES 
+('Pose vernis simple', 1, 1),
+('Pose vernis permanent', 1, 1),
+('Pose vernis  Miroir', 1, 1),
+('Massage facial', 1, 1),
+('Manucure', 1, 1),
+('Pedicure', 1, 1),
+('Faux ongles', 1, 1),
+('Depose', 1, 1),
+('Extension Gel UV', 1, 1),
+('Extension cils', 1, 1),
+('Epilation sourcils, duvet', 1, 1),
+('Epilation (JE - DJ)', 1, 1),
+('Epilation Aisselle', 1, 1),
+('Epilation Maillot', 1, 1),
+('Brushing', 1, 1),
+('Coupe (H-F-E)', 1, 1),
+('Steampod', 1, 1),
+('Coloration', 1, 1),
+('Soins de visage', 1, 1),
+('Maquillage', 1, 1),
+('Nails Art', 1, 1),
+('Foot massage', 1, 1),
+('Resine', 1, 1),
+('Gainage', 1, 1),
+('Tatoo', 1, 1);
+
+
 INSERT INTO Genre (nom) VALUES ('Homme');
 INSERT INTO Genre (nom) VALUES ('Femme');
 

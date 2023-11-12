@@ -13,7 +13,7 @@ class ClientDetails extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['idclient','idemploye','idservice','idsalon','inserted'];
+    protected $fillable = ['idclient','idemploye','idservice','idsalon','prix','inserted'];
 
     public function Client(){
         return $this->belongsTo(Client::class, 'idclient');

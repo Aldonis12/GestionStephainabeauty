@@ -93,4 +93,12 @@
         </div>
       </li>
     </ul>
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">
+          <i class="ti-shift-right menu-icon"></i>
+          <span class="menu-title">Se deconnecter</span>
+        </a>
+      </li>
+    </ul>
   </nav>

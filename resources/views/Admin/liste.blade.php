@@ -407,9 +407,15 @@
                                                 @csrf
                                                 <div class="form-group row">
                                                     <div class="col">
-                                                        <label>Date</label>
+                                                        <label>Date Debut</label>
                                                         <div id="daty">
-                                                            <input class="typeahead" type="date" name="daty">
+                                                            <input class="typeahead" type="date" name="daty_debut">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label>Date Fin</label>
+                                                        <div id="daty">
+                                                            <input class="typeahead" type="date" name="daty_fin">
                                                         </div>
                                                     </div>
                                                     <div class="col">

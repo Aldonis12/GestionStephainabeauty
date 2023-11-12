@@ -49,7 +49,7 @@ class AuthentificationController extends Controller
     public function Logout()
     {
         session()->flush();
-        return redirect('/');
+        return redirect('/loginPage/admin');
     }
 
     public function Forgetpassword() {
